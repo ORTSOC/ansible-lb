@@ -1,2 +1,2 @@
 # ansible-logstash-lb
-ORTSOC Infra Playbook: Logstash Load Balancer
+ORTSOC Infra Role: Logstash Load Balancer
