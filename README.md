@@ -14,6 +14,9 @@ ORTSOC Infra Role: HAProxy Load Balancer
 ## Example Config
 
 ```yml
+# (OPTIONAL) path to where haproxy will show stats information
+stats_path: /haproxy
+
 # list of all groupings of endpoints
 lb_groups:
   # friendly name, only used for identification in stats_path
@@ -24,7 +27,6 @@ lb_groups:
 
     # mode to lb over. Can be tcp, udp, http
     mode: tcp
-    stats_path: /haproxy
     endpoints:
     - addr: 10.0.0.5
       port: 4001
