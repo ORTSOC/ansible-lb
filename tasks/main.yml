@@ -1,2 +1,30 @@
 ---
-# tasks file for .
+# HAProxy is not included in debian 10, but is in debian 11. buster-backports gives us access to debian 11 packages.
+- name: Add buster-backports repository into sources list for HAProxy
+  apt_repository:
+    repo: deb http://deb.debian.org/debian buster-backports main
+    state: present
+    update_cache: yes
+
+- name: install haproxy
+  become: yes
+  apt:
+    name: haproxy
+
+# enable the haproxy kernel module so we can enable logging for it.
+- name: enable haproxy kernel module
+  become: yes
+  modprobe:
+    name: haproxy
+    state: present  
+
+# generate config from vars and start/restart the config
+- name: load config
+  become: yes
+  template:
+    src: haproxy.conf.j2
+    dest: /etc/haproxy/haproxy.cfg
+    owner: root
+    group: root
+    mode: "0644"
+  notify: "restart haproxy"
