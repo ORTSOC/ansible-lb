@@ -1,14 +1,14 @@
 {% for group in lb_groups %}
 frontend {{ group.name }}
 	bind *:{{ group.listening_port }}
-	mode {{ mode }}
+	mode {{ group.mode }}
 	{% if stats_path %}
-	stats uri {% stats_path %}?{{ group.name }}
-	{% if stats_path %}
+	stats uri {{ stats_path }}?{{ group.name }}
+	{% endif %}
 	default_backend http_back
 
 backend {{ group.name }}
-	mode http
+	mode {{ group.mode }}
 	balance roundrobin
 {% for endpoint in group.endpoints %}
 	server {{ endpoint.name }} {{ endpoint.addr }}:{{ endpoint.port }} check
