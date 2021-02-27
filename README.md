@@ -1,4 +1,4 @@
-# ansible-logstash-lb
+# ansible-lb
 ORTSOC Infra Role: HAProxy Load Balancer
 
 ## Variables
