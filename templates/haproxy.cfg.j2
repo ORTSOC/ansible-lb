@@ -1,8 +1,8 @@
 {% for group in lb_groups %}
 frontend {{ group.name }}
-	bind *:{{ group.listening_port }} {% if haproxy_cert %}ssl crt /etc/haproxy/haproxy_cert.pem verify none{% endif %}
+	bind *:{{ group.listening_port }} {% if haproxy_cert is defined %}ssl crt /etc/haproxy/haproxy_cert.pem verify none{% endif %}
 	mode {{ group.mode }}
-	{% if stats_path %}
+	{% if stats_path is defined %}
 	stats uri {{ stats_path }}?{{ group.name }}
 	{% endif %}
 	default_backend http_back
