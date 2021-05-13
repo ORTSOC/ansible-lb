@@ -11,11 +11,17 @@ ORTSOC Infra Role: HAProxy Load Balancer
         * `addr`: the address to the endpoint.
         * `addr`: the port to load balance over.
 * `stats_path`: (OPTIONAL) if specified, all traffic over the specified port will route HTTP GET requests that are for the uri `/{stats_path}?{group.name}` to a stats page that requireares authentication. Once logged in, information about the health of endpoints will be listed, per group.
+* `haproxy_cert`: (OPTIONAL) The certificate to establish SSL in .pem format. If not provided, lb will only work over SSL. If provided, forces frontend connections to use SSL, decrypts at the proxy level, and then communicates with the load balanced hosts over plaintext.
 ## Example Config
 
 ```yml
 # (OPTIONAL) path to where haproxy will show stats information
 stats_path: /haproxy
+
+# (OPTIONAL) certificate in .pem format
+haproxy_cert: BEGIN .... END
+
+haproxy_cert: 
 
 # list of all groupings of endpoints
 lb_groups:

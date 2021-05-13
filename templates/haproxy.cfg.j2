@@ -1,6 +1,6 @@
 {% for group in lb_groups %}
 frontend {{ group.name }}
-	bind *:{{ group.listening_port }}
+	bind *:{{ group.listening_port }} {% if haproxy_cert %}ssl crt /etc/haproxy/haproxy_cert.pem verify none{% endif %}
 	mode {{ group.mode }}
 	{% if stats_path %}
 	stats uri {{ stats_path }}?{{ group.name }}

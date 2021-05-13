@@ -26,5 +26,16 @@
     dest: /etc/haproxy/haproxy.cfg
     owner: root
     group: root
-    mode: "0644"
+    mode: "0664"
+  notify: "restart haproxy"
+
+# place haproxy https cert
+- name: write certificate if provided
+  become: yes
+  template:
+    src: haproxy_cert.pem.j2
+    dest: /etc/haproxy/haproxy_cert.pem
+    owner: root
+    group: root
+    mode: "0660"
   notify: "restart haproxy"
