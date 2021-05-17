@@ -11,13 +11,6 @@
   apt:
     name: haproxy
 
-# enable the haproxy kernel module so we can enable logging for it.
-- name: enable haproxy kernel module
-  become: yes
-  modprobe:
-    name: haproxy
-    state: present  
-
 # generate config from vars and start/restart the config
 - name: load config
   become: yes
