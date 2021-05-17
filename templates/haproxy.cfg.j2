@@ -14,3 +14,5 @@ backend {{ group.name }}
 	server {{ endpoint.name }} {{ endpoint.addr }}:{{ endpoint.port }} check
 {% endfor %}
 {% endfor %}
+
+stats socket 127.0.0.1:14567
