@@ -1,14 +1,14 @@
 {% for group in lb_groups %}
-frontend {{ group.name }}
+frontend {{ group.name }}_front
 	bind *:{{ group.listening_port }} {% if haproxy_cert is defined %}ssl crt /etc/haproxy/haproxy_cert.pem verify none{% endif %}
 
 	mode {{ group.mode }}
 	{% if stats_path is defined %}
 	stats uri {{ stats_path }}?{{ group.name }}
 	{% endif %}
-	default_backend {{ group.name }}
+	default_backend {{ group.name }}_back
 
-backend {{ group.name }}
+backend {{ group.name }}_back
 	mode {{ group.mode }}
 	balance roundrobin
 {% for endpoint in group.endpoints %}
